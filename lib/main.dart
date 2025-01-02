@@ -29,6 +29,7 @@ class CubeState {
     [Colors.white, Colors.white, Colors.white, Colors.white], // Bottom
   ];
 
+<<<<<<< HEAD
   // Rotate top face to the left, modify if necessary
   void rotateTop() {
     // Store the top row of each face
@@ -51,6 +52,42 @@ class CubeState {
   // Rotate top face to the left, modify if necessary
   void rotateBottom() {
     //Need to implement your code here
+=======
+  // Rotate the top face
+  void rotateTop() {
+    // Rotate the top face itself
+    List<Color> temp = [...faces[4]];
+    faces[4] = [temp[2], temp[0], temp[3], temp[1]];
+
+    // Update adjacent edges (Front, Left, Back, Right)
+    List<Color> tempEdge = [faces[0][0], faces[0][1]]; // Front top row
+    faces[0][0] = faces[1][0];
+    faces[0][1] = faces[1][1];
+    faces[1][0] = faces[3][2];
+    faces[1][1] = faces[3][3];
+    faces[3][2] = faces[2][0];
+    faces[3][3] = faces[2][1];
+    faces[2][0] = tempEdge[0];
+    faces[2][1] = tempEdge[1];
+  }
+
+  // Rotate the bottom face
+  void rotateBottom() {
+    // Rotate the bottom face itself
+    List<Color> temp = [...faces[5]];
+    faces[5] = [temp[2], temp[0], temp[3], temp[1]];
+
+    // Update adjacent edges (Front, Right, Back, Left)
+    List<Color> tempEdge = [faces[0][2], faces[0][3]]; // Front bottom row
+    faces[0][2] = faces[2][2];
+    faces[0][3] = faces[2][3];
+    faces[2][2] = faces[3][0];
+    faces[2][3] = faces[3][1];
+    faces[3][0] = faces[1][2];
+    faces[3][1] = faces[1][3];
+    faces[1][2] = tempEdge[0];
+    faces[1][3] = tempEdge[1];
+>>>>>>> d5f3038 (Initial commit)
   }
 }
 
@@ -70,6 +107,15 @@ class _CubeScreenState extends State<CubeScreen> {
     });
   }
 
+<<<<<<< HEAD
+=======
+  void rotateBottom() {
+    setState(() {
+      cube.rotateBottom();
+    });
+  }
+
+>>>>>>> d5f3038 (Initial commit)
   Widget buildFace(List<Color> faceColors) {
     return GridView.builder(
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -88,6 +134,7 @@ class _CubeScreenState extends State<CubeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('2x2 Rubik\'s Cube'),
+<<<<<<< HEAD
         // instead of using an icon button here, create atleast 2 buttons to rotate the faces, rotate left face, or rotate right face, or implement all rotations.
         actions: [
           IconButton(
@@ -151,6 +198,86 @@ class _CubeScreenState extends State<CubeScreen> {
             ),
           ],
         ),
+=======
+      ),
+      body: Column(
+        children: [
+          // Top face
+          Column(
+            children: [
+              const Text('Top'),
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: buildFace(cube.faces[4]),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // Left face
+              Column(
+                children: [
+                  const Text('Left'),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: buildFace(cube.faces[1]),
+                  ),
+                ],
+              ),
+              // Front face
+              Column(
+                children: [
+                  const Text('Front'),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: buildFace(cube.faces[0]),
+                  ),
+                ],
+              ),
+              // Right face
+              Column(
+                children: [
+                  const Text('Right'),
+                  SizedBox(
+                    height: 100,
+                    width: 100,
+                    child: buildFace(cube.faces[2]),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          // Bottom face
+          Column(
+            children: [
+              const Text('Bottom'),
+              SizedBox(
+                height: 100,
+                width: 100,
+                child: buildFace(cube.faces[5]),
+              ),
+            ],
+          ),
+          // Action Buttons
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton(
+                onPressed: rotateTop,
+                child: const Text('Rotate Top'),
+              ),
+              ElevatedButton(
+                onPressed: rotateBottom,
+                child: const Text('Rotate Bottom'),
+              ),
+            ],
+          ),
+        ],
+>>>>>>> d5f3038 (Initial commit)
       ),
     );
   }
